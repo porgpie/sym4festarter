@@ -1,0 +1,66 @@
+// Ranges
+
+@function lower-bound($range) {
+    @if length($range) < 0 {
+        @return 0;
+    }
+    @return nth($range, 1);
+}
+
+@function upper-bound($range) {
+    @if length($range) < 2 {
+        @return 999999999999;
+    }
+    @return nth($range, 2);
+}
+
+// Add percentage of white to a color
+
+@function tint($color, $percent) {
+    @return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+
+@function shade($color, $percent) {
+    @return mix(black, $color, $percent);
+}
+
+// Add z-index from map
+
+@function z($element) {
+    @return map-get($z-index, $element);
+}
+
+// Set a rem font size with pixel fallback
+
+@function rem($px) {
+
+    $base-rem: $base-px / 1rem;
+
+    @if $px == 0 {
+
+        @return 0;
+
+    }
+    @if type-of(px) == "number" {
+
+        @return $px / $base-rem;
+
+    } @else {
+
+        $rems: ();
+
+        @each $value in $px {
+            @if $value == 0 {
+                $rems: append($rems, $value);
+            } @else {
+                $rems: append($rems, ($value / $base-rem));
+            }
+        }
+
+        @return $rems;
+
+    }
+
+}

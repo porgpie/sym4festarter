@@ -1,0 +1,164 @@
+// Media Query Mixins
+
+@mixin mq-s-only {
+    @media #{$small-only} {
+        @content;
+    }
+}
+
+@mixin mq-m-down {
+    @media #{$small-medium-only} {
+        @content;
+    }
+}
+
+@mixin mq-m-only {
+    @media #{$medium-only} {
+        @content;
+    }
+}
+
+@mixin mq-m {
+    @media #{$medium} {
+        @content;
+    }
+}
+
+@mixin mq-l {
+    @media #{$large} {
+        @content;
+    }
+}
+
+@mixin mq-min($min-width) {
+    @media only screen and (min-width: $min-width) {
+        @content;
+    }
+}
+
+@mixin mq-max($max-width) {
+    @media only screen and (max-width: $max-width) {
+        @content;
+    }
+}
+
+@mixin mq-custom($min-width, $max-width) {
+    @media only screen and (min-width: $min-width) and (max-width: $max-width) {
+        @content;
+    }
+}
+
+@mixin mq-height($min-height) {
+    @media only screen and (min-height: $min-height) {
+        @content;
+    }
+}
+
+// Clearfix
+
+@mixin clearfix {
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+// Size
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+// Position Mixin
+
+@mixin position($position, $args) {
+    @each $o in top right bottom left {
+            $i: index($args, $o);
+            @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number  {
+                #{$o}: nth($args, $i + 1);
+        }
+    }
+    position: $position;
+}
+
+@mixin relative($args) {
+    @include position(relative, $args);
+}
+
+@mixin absolute($args) {
+    @include position(absolute, $args);
+}
+
+@mixin fixed($args) {
+    @include position(fixed, $args);
+}
+
+// Form Placeholder Text Mixin
+
+@mixin placeholder($color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+    &::-moz-placeholder {
+        color: $color;
+    }
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+}
+
+// Hide Scrollbar
+
+@mixin hide-scrollbar {
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+// Responsive Img
+
+@mixin rwd-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+// Responsive Font-Size
+
+@mixin responsive-fs($responsive, $min, $max: false) {
+
+    $responsive-unitless: $responsive / ($responsive - $responsive + 1);
+    $dimension: if(unit($responsive) == 'vh', 'height', 'width');
+    $min-breakpoint: $min / $responsive-unitless * 100;
+
+    @media (max-#{$dimension}: #{$min-breakpoint}) {
+        font-size: $min;
+    }
+
+    @if $max {
+        $max-breakpoint: $max / $responsive-unitless * 100;
+        @media (min-#{$dimension}: #{$max-breakpoint}) {
+            font-size: $max;
+        }
+    }
+
+    font-size: $responsive;
+
+}
+
+// Children Margin
+
+@mixin children-margin($margin) {
+    > *:not(:last-child) {
+        margin-bottom: $margin;
+    }
+}
+
+// SVG Sprite
+
+@mixin sprite($nr) {
+    background: url('../dist/svg/sprite.svg') no-repeat 50% $i-sprite * ($nr - 1) / cover;
+}

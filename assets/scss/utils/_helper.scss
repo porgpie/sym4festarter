@@ -1,0 +1,146 @@
+// Colours
+
+.black-c {
+    color: $black!important;
+}
+
+.white-c {
+    color: $white!important;
+}
+
+.blue-c {
+    color: $blue!important;
+}
+
+.brown-c {
+    color: $brown!important;
+}
+
+// Utility Classes
+
+.clearfix {
+    @include clearfix;
+}
+
+.ta-l {
+    text-align: left;
+}
+
+.ta-c {
+    text-align: center;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+// Misc Classes
+
+%bold {
+    font-weight: $bold-fw;
+    //letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.spacer {
+    margin: $dbl-gutter 0;
+}
+
+.conclusion {
+    @include relative(top -2px);
+    @include size(rem(32px));
+    vertical-align: text-top;
+    fill: $white;
+    margin-right: rem(20px);
+}
+
+.line-break {
+    display: block;
+    &:after {
+        content: '-';
+    }
+}
+
+.counters {
+    counter-reset: ctr;
+    > div:before {
+        content: '' counter(ctr) '';
+        counter-increment: ctr;
+    }
+}
+
+.disable-pointer-events {
+    pointer-events: none;
+}
+
+.note {
+    background: $blue;
+    padding: $half-gutter-px;
+}
+
+.highlight {
+    background: $white;
+    color: $blue;
+    font-weight: $bold-fw;
+    padding: 10px 0;
+}
+
+// No JS
+
+noscript {
+    display: block; // for padding
+    @include fixed(top 0 left 0 right 0);
+    z-index: z(noscript);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #ae0000;
+    color: $white;
+    padding: 12px 6px;
+}
+
+// Media Queries for hiding classes
+
+@media #{$small-only} {
+
+    .hide-for-s {
+        display: none !important;
+    }
+
+}
+
+@media #{$small-medium-only} {
+
+    .hide-for-m-down {
+        display: none !important;
+    }
+
+}
+
+@media #{$medium} {
+
+    .hide-for-m-up {
+        display: none !important;
+    }
+
+}
+
+@media #{$medium-only} {
+
+    .hide-for-m {
+        display: none !important;
+    }
+
+}
+
+@media #{$large} {
+
+    .hide-for-l {
+        display: none !important;
+    }
+
+}
